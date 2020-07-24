@@ -1,16 +1,33 @@
-window.addEventListener('DOMContentLoaded', function(e){
-    document.querySelector('hp-presentation').onclick = handlePresentationClick;
-})
+window.addEventListener('DOMContentLoaded', function (e) {
+    var presentation = document.querySelector('hp-presentation');
+  
+    presentation.onclick = handlePresentationClick;
+    presentation.addEventListener('animationend', handleAnimationEnd, false);
+  });
+  
+  function handlePresentationClick(e) {
+    var current = document.querySelector('hp-slide.active');
+    var next = current.nextElementSibling;
+  
+    if (next) {
+      current.classList.remove('active');
+      next.classList.add('active');
+  
+      var aa = parseInt(next.getAttribute('data-autoadvance'));
+  
+      if (!isNaN(aa)) {
+        setTimeout(function (e) {
+          handlePresentationClick(e);
+        }, aa);
+      }
+    }
+  }
 
-function handlePresentationClick(e) {
-   var current = document.querySelector('hp-slide.active');
-   var next = current.nextElementSibling;
+  function handleAnimationEnd(e){
+      var slide = e.target.closest('hp-slide');
+      var aa = slide.getAttribute('data-autoadvance');
 
-   while(next && next.tagName != 'HP-SLIDE'){
-       next = next.nextElementSibling;
-   }
-   if(next){
-       current.classList.remove('active');
-       next.classList.add('active');
-   }
-}
+      if(aa == 'animationed' && slide.classList.contains('active')){
+         handlePresentationClick(e);
+      }
+  }
