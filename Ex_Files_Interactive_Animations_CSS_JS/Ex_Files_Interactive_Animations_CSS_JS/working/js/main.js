@@ -43,8 +43,9 @@ function handleAnimationEnd(e) {
 
 function setLearnImage(imageName) {
   var img = document.querySelector('hp-slide.active hp-learn img');
-
-  img.src = 'images/' + imageName + '.svg';
+  if(img){
+    img.src = 'images/' + imageName + '.svg';  
+  }
 }
 
 var shapes = ['circle', 'diamond', 'square', 'triangle'];
@@ -58,18 +59,38 @@ function showLearning() {
   slide.classList.remove('learn-no');
   slide.classList.add(ii ? 'learn-no' : 'learn-yes');
 }
-function startLearning(learningDelay){
+function startLearning(learningDelay) {
   showLearning();
-  setTimeout(()=>{
-    if(learningDelay > 1.1){
+  setTimeout(() => {
+    if (learningDelay > 1.1) {
       showLearning();
-      
-      learningDelay = Math.pow(learningDelay, 1/1.05);
+
+      learningDelay = Math.pow(learningDelay, 1 / 1.05);
       startLearning(learningDelay);
     }
-  },learningDelay);
+  }, learningDelay);
 }
 function runLearningSequence() {
   // 
   startLearning(1500)
+}
+function animateSVGStep() {
+  var slide = document.querySelector('hp-slide.active');
+  var svgs = slide.querySelectorAll('svg');
+
+  if (svgs[0].children.length > 0) {
+    var el = svgs[0].children[0];
+
+    if (el) {
+      svgs[1].appendChild(el.parentNode.removeChild(el));
+    }
+
+    return true;
+  }
+  return false;
+}
+function animateSVG() {
+  if (animateSVGStep()) {
+    setTimeout(animateSVG, 30)
+  }
 }
