@@ -1,0 +1,25 @@
+{
+  "name": "testing-webpack",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "webpack",
+    "es6"
+  ],
+  "author": "Hana Park",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.10.5",
+    "@babel/preset-env": "^7.10.4",
+    "babel-loader": "^7.1.5",
+    "webpack": "^4.44.0",
+    "webpack-cli": "^3.3.12"
+  },
+  "dependencies": {
+    "babel-preset-env": "^1.7.0"
+  },
+  "description": ""
+}
