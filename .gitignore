@@ -38,3 +38,6 @@ javascript/Ex_Files_Learning_JavaScript/Exercise Files/Ch06/06_07/transcript.js
 javascript/Ex_Files_Learning_JavaScript/Exercise Files/Ch06/06_08/transcript.js
 javascript/Ex_Files_Learning_JavaScript/Exercise Files/Ch07/07_02/examples.js
 javascript/es6/node_modules/*
+*/bablerc
+*/package.json
+*/package-lock.json
