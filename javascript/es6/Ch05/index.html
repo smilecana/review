@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script>
+		console.log('----------------Intro to promises---------------');
+		// const delay = seconds => {
+		// 	return new Promise((resolve , reject) => {
+		// 		if (typeof seconds !== 'number') {
+		// 			reject(new Error('Argument seconds must be a number'));
+		// 		}
+		// 		setTimeout(()=> resolve(`${seconds} second delay is up`), seconds * 1000);
+		// 	});
+		// };
+		console.log("zero seconds")
+		
+		// delay(2).then(msg => msg.toUpperCase())
+		// 		.then(msg => `${msg}!!!`)
+		// 		.then(msg => console.log(msg));
+
+		console.log('----------------Building promises---------------');
+		const spacePeople = () => {
+			return new Promise((resolve, rejects) => {
+				const api = "http://api.open-notify.org/astros.json";
+				const request = new XMLHttpRequest();
+				request.open('GET', api);
+				request.onload = () => {
+					if (request.status === 200) {
+						resolve(JSON.parse(request.response));
+					} else {
+						reject(Error(request.statusText));
+					}
+				};
+				request.onerror = err => reject(err);
+				request.send();
+			})
+		};
+
+		spacePeople().then(
+			spaceData => console.log(spaceData),
+			err => console.error(
+				new Error('Cannot load space people')
+			)
+		)
+
+		console.log('----------------Loading data with fetch---------------');
+
+
+		const getPeopleInSpace = () => 
+			fetch('http://api.open-notify.org/astros.json')
+				.then (res=>res.json());
+		const spaceNames = () => 
+			getPeopleInSpace()
+				.then(json => json.people)	
+				.then(people => people.map(p => p.name))
+				.then(names => names.join(', '));
+
+		spaceNames()
+			.then(console.log);
+
+			
+		console.log('----------------Async and await---------------');
+		const delay = seconds => {
+			return new Promise(
+				resolve => setTimeout(resolve, seconds * 1000)
+			)
+		};
+
+		const countToFive = async() => {
+			console.log('zero seconds');
+			await delay(1);
+			console.log('one second');
+			await delay(1);
+			console.log('two seconds');
+			await delay(3);
+			console.log('five seconds');
+		}
+		countToFive();
+		console.log('----------------Async with fetch---------------');
+		(async(loginName) => {
+			try {
+				var response = await fetch(`https://api.github.com/users/${loginName}/followers`);
+				var json = await response.json();
+				var followerList = json.map(user => user.login);
+				console.log(followerList);
+			} catch(e) {
+				console.log("Data didn't load", e);
+			}
+		})('eveporcello');
+	</script>
+	<title>Promises</title>
+</head>
+<body>
+</body>	
+</html>
