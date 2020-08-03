@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script>
+		console.log('----------------ES6 class syntax---------------');
+		class Vehicle {
+			constructor(description, wheels) {
+				this.description = description;
+				this.wheels = wheels;
+			}
+			describeYourself() {
+				console.log(`I am a ${this.description} with ${this.wheels} wheels`);
+			}
+		}
+		console.log('----------------Class inheritance---------------');
+		var coolSkiVan = new Vehicle("cool ski van", 4);
+		coolSkiVan.describeYourself();
+
+		class SemiTruck extends Vehicle {
+			constructor() {
+				super("semi truck", 18)
+			}
+		}
+		var groceryStoreSemi = new SemiTruck();
+		groceryStoreSemi.describeYourself();
+
+		console.log('----------------Getters and setters---------------');
+		var attendance = {
+			_list: [],
+			set addName(name) {
+				this._list.push(name);
+			},
+			get list() {
+				return this._list.join(', ');
+			}
+		};
+
+		attendance.addName = "joanne";
+		console.log("List getter:", attendance.list);
+		console.log("Underscore list (prop)", attendance._list);
+		attendance.addName = "Anna";
+		attendance.addName = "Charlie";
+		console.log("List getter:", attendance.list);
+
+		console.log('----------------Classes--------------');
+
+		class Hike {
+			constructor(distance, pace) {
+				this.distance = distance;
+				this.pace = pace;
+			}
+			get lengthInHousr() {
+				return `${this.calcLength()} hours`;
+			}
+			calcLength() {
+				return this.distance / this.pace;
+			}
+		}
+		const mtTallc = new Hike(10, 2);
+		console.log(mtTallc.lengthInHousr);
+	</script>
+	<title>ES6 Classes</title>
+</head>
+<body>
+</body>	
+</html>
